@@ -1,16 +1,12 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { RootLayout, AuthLayout } from './layouts';
+import { RootLayout } from './layouts';
 import { Dashboard, About, Gallery, Contact } from './pages';
-import { AuthProvider } from './context';
 
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
-          {/* Auth routes */}
-          <Route element={<AuthLayout />}></Route>
           {/* Root routes */}
           <Route element={<RootLayout />}>
             <Route index element={<Dashboard />} />

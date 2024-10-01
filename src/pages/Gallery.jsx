@@ -134,14 +134,16 @@ const Gallery = () => {
           {images.map((image, i) => {
             return (
               <>
-                <ImageCard
-                  imgUrl={image.url}
-                  user={image.uploaderName}
-                  timestamp={image.timestamp}
-                  handleExpandImage={handleExpandImage}
-                  expandImage={expandImage}
-                  num={i}
-                />
+                <div key={i}>
+                  <ImageCard
+                    imgUrl={image.url}
+                    user={image.uploaderName}
+                    timestamp={image.timestamp}
+                    handleExpandImage={handleExpandImage}
+                    expandImage={expandImage}
+                    num={i}
+                  />
+                </div>
               </>
             );
           })}

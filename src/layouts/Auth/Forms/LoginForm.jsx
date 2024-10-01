@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: 'udugbesimarves@gmail.com',
+    email: 'test@gmail.com',
     password: 'wewesco50#',
   });
 

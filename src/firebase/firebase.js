@@ -1,22 +1,23 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore"
-import {getStorage} from "firebase/storage"
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+
 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB5tuyNOrZhUUIx6rmSamRauvYtmva-QFo",
-  authDomain: "wedding-app-87786.firebaseapp.com",
-  projectId: "wedding-app-87786",
-  storageBucket: "wedding-app-87786.appspot.com",
-  messagingSenderId: "185983619509",
-  appId: "1:185983619509:web:02b633e564c1bacca689fc"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);
-export const imageDb = getStorage(app)
+export const imageDb = getStorage(app);
 export default app;
