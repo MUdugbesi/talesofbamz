@@ -109,7 +109,7 @@ const Gallery = () => {
         {expandImage && (
           <>
             <div className='overlay fixed'></div>
-            <div className='mx-auto lg:w-[60%] lg:h-[600px] bg-[#ffffff] image-expand flex justify-center items-center'>
+            <div className='mx-auto lg:w-[60%] lg:h-[600px] bg-[#ffffff] image-expand flex justify-center items-center top-20'>
               <div className='absolute -top-2 -right-2 border border-black bg-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
                 <IoMdClose
                   className='text-white hover:cursor-pointer active:text-[red]'
