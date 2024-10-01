@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply p-0 m-0 box-border font-poppins bg-cover bg-no-repeat bg-[white];
+  }
+  .overlay {
+    @apply bg-black opacity-50 absolute top-0 w-full h-full right-0 left-0;
+  }
+
+  main {
+    @apply w-[95%] max-lg:w-[90%] lg:w-[80%] mx-auto;
+  }
+
+  .dashboard,
+  .about {
+    @apply min-h-[70vh] h-auto mx-auto mb-10;
+  }
+  .dashboard {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-2 w-[95%] lg:mt-16;
+  }
+  .about {
+    @apply grid md:grid-cols-2 mt-10;
+  }
+  .gallery {
+    @apply mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-14 gap-4;
+  }
+}
+@layer components {
+  .nav {
+    @apply pt-6 lg:w-[95%] mx-auto border-b border-[#00000077] h-[100px] flex items-center justify-between md:justify-around pb-3;
+  }
+  .logo-ctn {
+    @apply md:w-[20%] flex justify-center items-center flex-col;
+  }
+  .logo-ctn p {
+    @apply font-cookie text-[22px];
+  }
+  .logo-img {
+    @apply size-14 -skew-x-12 transitioning;
+  }
+  .logo-img:hover {
+    @apply skew-x-0  cursor-pointer;
+  }
+
+  .navlist {
+    @apply hidden md:w-[60%] lg:w-[50%] md:flex justify-evenly items-center relative;
+  }
+  .navItem,
+  .navItem_mobile {
+    @apply text-[18px] font-rubik relative transitioning;
+  }
+  .navItem:hover {
+    @apply -translate-y-[2px] font-[500];
+  }
+  .navItem_mobile {
+    @apply w-[50%] mx-auto text-center p-5;
+  }
+  .navItem::after,
+  .navItem_mobile::after {
+    @apply content-[''] w-0 h-[2px] bg-primary absolute inset-x-0 inset-y-6 transitioning;
+  }
+  .navItem:hover::after {
+    @apply w-full;
+  }
+
+  .navlist_mobile {
+    @apply md:hidden flex flex-col absolute  w-[60%] h-screen top-[6rem] right-0 bg-white z-20 pt-5 shadow-md shadow-black transitioning;
+  }
+
+  .active {
+    @apply -translate-y-[2px] font-[500] text-purple-600;
+  }
+
+  .upload {
+    @apply border border-secondary rounded-lg p-2 text-sm flex justify-center items-center gap-1 bg-[white] shadow-md shadow-black transitioning;
+  }
+  .upload:hover {
+    @apply shadow-none bg-primary text-[white];
+  }
+  .upload:active {
+    @apply text-red-500;
+  }
+
+  .home-desc .title {
+    @apply uppercase font-rubik text-5xl md:text-6xl leading-[60px] md:leading-[75px] p-2 max-lg:text-center;
+  }
+
+  .home-desc .sub-title {
+    @apply mt-5 font-[500] md:w-[90%] w-full p-2 max-lg:mx-auto text-center lg:text-start max-md:text-sm mb-3;
+  }
+
+  .card_heart_top {
+    @apply rounded-full bg-gradient-to-r from-purple-500 via-[#f53a3a] to-pink-500  w-[52px] h-[52px] flex justify-center items-center skew-x-12 -skew-y-12 absolute right-4 -top-9;
+  }
+  .card_heart_bottom {
+    @apply rounded-full bg-gradient-to-r from-purple-500 via-[#f53a3a] to-pink-500  w-[50px] h-[50px] flex justify-center items-center skew-x-12 -skew-y-12 absolute left-6 -bottom-6;
+  }
+
+  .card_text {
+    @apply w-[80%] mx-auto p-2 font-[500] font-cookie text-[22px] text-center;
+  }
+
+  .form,
+  .upload_form {
+    @apply w-[88%] md:w-[60%] lg:w-[28vw] min-h-[50vh] h-auto mx-auto rounded-xl p-6 md:p-14 bg-white shadow-md shadow-black relative z-30 top-10;
+  }
+
+  .btn {
+    @apply border border-[#acacacb1] h-[55px] p-7 flex justify-center items-center rounded-full text-sm;
+  }
+  .input {
+    @apply text-sm md:text-[16px] h-full w-full pl-4 caret-purple-500 bg-transparent rounded-lg outline-none focus:outline-purple-500 outline-offset-0;
+  }
+  .input::placeholder {
+    @apply font-roboto tracking-wide text-sm;
+  }
+  .file-input {
+    @apply w-full h-full hidden;
+  }
+  .image-card {
+    @apply border border-black w-[250px] h-[200px] rounded-lg m-2 shadow-lg shadow-black object-cover;
+  }
+}
+@layer utilities {
+  .transitioning {
+    @apply transition-all delay-75 duration-500 ease-in-out;
+  }
+
+  .mobile_icon {
+    @apply flex md:hidden text-[26px] cursor-pointer;
+  }
+  .signedin_user {
+    @apply font-mono text-start w-[80%] mx-auto mt-5 text-[20px] pl-5;
+  }
+}
