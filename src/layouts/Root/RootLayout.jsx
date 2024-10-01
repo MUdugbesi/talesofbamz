@@ -10,6 +10,7 @@ const RootLayout = () => {
   const [formType, setFormType] = useState(null);
   const { userLoggedIn, currentUser } = useAuth();
   const [user, setUser] = useState(null);
+  const [mobileToggleMenu, setMobileToggleMenu] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +41,7 @@ const RootLayout = () => {
       navigate('/gallery');
     } else {
       setFormType((prevType) => (prevType === 'signin' ? null : 'signin'));
+      setMobileToggleMenu((prev) => !prev);
     }
   };
   const handleSignUpForm = () => {
@@ -47,6 +49,9 @@ const RootLayout = () => {
   };
   const handleSignUpFormClose = () => {
     setFormType(null);
+  };
+  const handleMobilemobileToggleMenu = () => {
+    setMobileToggleMenu((prev) => !prev);
   };
 
   return (
@@ -79,6 +84,10 @@ const RootLayout = () => {
         handleUploadOverlay={toggleSigninForm}
         userLoggedIn={userLoggedIn}
         user={user}
+        setFormType={setFormType}
+        onMobileToggle={handleMobilemobileToggleMenu}
+        mobileToggleMenu={mobileToggleMenu}
+        setMobileToggleMenu={setMobileToggleMenu}
       />
       <Outlet
         context={{

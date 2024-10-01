@@ -8,12 +8,16 @@ import { Button, ImageCard } from '../components';
 import { useAuth } from '../context';
 import { useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { IoMdClose } from 'react-icons/io';
 
 const Gallery = () => {
   const [img, setImg] = useState(null);
   const [images, setImages] = useState([]);
   const [toggleForm, setToggleForm] = useState(false);
   const { user } = useOutletContext();
+  const [expandImage, setExpandImage] = useState(false);
+  const [expandImgSrc, setExpandImgSrc] = useState(null);
 
   const { userLoggedIn, currentUser } = useAuth();
 
@@ -65,6 +69,14 @@ const Gallery = () => {
     setToggleForm(false);
     toast.error('Upload cancelled by user');
   };
+  const handleExpandImage = (e, num) => {
+    if ((e, num)) {
+      setExpandImage((prev) => !prev);
+      setExpandImgSrc(e.target.ownerDocument.images[num].src);
+    } else {
+      setExpandImage((prev) => !prev);
+    }
+  };
 
   return (
     <>
@@ -80,6 +92,7 @@ const Gallery = () => {
             />
           </>
         )}
+
         <p className='text-center pt-3 text-[50px] font-sacramento'>
           Our Gallery
         </p>
@@ -93,16 +106,45 @@ const Gallery = () => {
           )}
         </div>
 
-        <div className='gallery'>
-          {images.map((image) => (
-            <div key={image.id}>
-              <ImageCard
-                imgUrl={image.url}
-                user={image.uploaderName}
-                timestamp={image.timestamp}
-              />{' '}
+        {expandImage && (
+          <>
+            <div className='overlay fixed'></div>
+            <div className='mx-auto lg:w-[60%] lg:h-[600px] bg-[#ffffff] image-expand flex justify-center items-center'>
+              <div className='absolute -top-2 -right-2 border border-black bg-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
+                <IoMdClose
+                  className='text-white hover:cursor-pointer active:text-[red]'
+                  onClick={handleExpandImage}
+                />
+              </div>
+              {expandImgSrc ? (
+                <img
+                  src={expandImgSrc}
+                  className='object-contain h-full w-[100%] rounded-lg border-x-2 border-primary object-top'
+                />
+              ) : (
+                <div className='flex justify-center items-center gap-3'>
+                  <AiOutlineLoading3Quarters className='animate-spin text-primary text-2xl' />
+                  <p className='text-center font-[500]'>Image Loading</p>
+                </div>
+              )}
             </div>
-          ))}
+          </>
+        )}
+        <div className='gallery'>
+          {images.map((image, i) => {
+            return (
+              <>
+                <ImageCard
+                  imgUrl={image.url}
+                  user={image.uploaderName}
+                  timestamp={image.timestamp}
+                  handleExpandImage={handleExpandImage}
+                  expandImage={expandImage}
+                  num={i}
+                />
+              </>
+            );
+          })}
         </div>
       </div>
     </>

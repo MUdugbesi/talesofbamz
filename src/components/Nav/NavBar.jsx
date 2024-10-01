@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo1.png';
 import UploadButton from '../Button/UploadButton';
 import Button from '../Button/Button';
@@ -9,24 +10,31 @@ import { toast } from 'react-toastify';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { useAuth } from '../../context';
 
-const NavBar = ({ handleUploadOverlay, user, userLoggedIn }) => {
-  const [toggleMenu, setToggleMenu] = useState(false);
+const NavBar = ({
+  handleUploadOverlay,
+  user,
+  userLoggedIn,
+  setFormType,
+  onMobileToggle,
+  mobileToggleMenu,
+  setMobileToggleMenu,
+}) => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
   const handleUserLogout = async () => {
     try {
       await signOut(auth);
       toast.success('User signed out');
+      navigate('/');
+      setFormType(null);
+      setMobileToggleMenu(false);
     } catch (e) {
       console.error(e);
       toast.error('Unable to sign out user');
     }
   };
 
-  console.log(user);
-
-  const handleToggleMenu = () => {
-    setToggleMenu((prev) => !prev);
-  };
   return (
     <>
       <nav className='nav'>
@@ -66,7 +74,9 @@ const NavBar = ({ handleUploadOverlay, user, userLoggedIn }) => {
 
         <UploadButton
           text='Upload'
-          className={`${userLoggedIn && 'hidden'} upload px-5 flex`}
+          className={`${
+            userLoggedIn && 'hidden sm:hidden lg:flex'
+          } upload px-5 max-md:hidden flex`}
           onClick={handleUploadOverlay}
         />
         {userLoggedIn ? (
@@ -84,13 +94,13 @@ const NavBar = ({ handleUploadOverlay, user, userLoggedIn }) => {
 
         {/* mobile navbar */}
 
-        {!toggleMenu ? (
-          <IoMdMenu className='mobile_icon' onClick={handleToggleMenu} />
+        {!mobileToggleMenu ? (
+          <IoMdMenu className='mobile_icon' onClick={onMobileToggle} />
         ) : (
-          <IoMdClose className='mobile_icon' onClick={handleToggleMenu} />
+          <IoMdClose className='mobile_icon' onClick={onMobileToggle} />
         )}
 
-        {toggleMenu && (
+        {mobileToggleMenu && (
           <>
             <ul className='navlist_mobile'>
               <NavLink
@@ -130,7 +140,7 @@ const NavBar = ({ handleUploadOverlay, user, userLoggedIn }) => {
                 className='upload px-5 flex md:hiden justify-center items-center w-[70%] mx-auto'
                 onClick={handleUploadOverlay}
               />
-              {user ? (
+              {user && userLoggedIn ? (
                 <div className='text-sm text-center'>
                   <span>Not {user || currentUser.displayName}?</span>{' '}
                   <Button
