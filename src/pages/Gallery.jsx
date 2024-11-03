@@ -18,19 +18,19 @@ const Gallery = () => {
   const { user } = useOutletContext();
   const { userLoggedIn, currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
-  const [loading, setLoading] = useState(true); // Loading state for fetching images
-  const [timeoutId, setTimeoutId] = useState(null); // To manage the timeout
-  const [fetchSuccessful, setFetchSuccessful] = useState(true); // To determine if fetching was successful
+  const [loading, setLoading] = useState(true);
+  const [timeoutId, setTimeoutId] = useState(null); 
+  const [fetchSuccessful, setFetchSuccessful] = useState(true);
 
   const handleUploadImage = async () => {
-    setUploading(true); // Start uploading state
+    setUploading(true); 
     if (img !== null && currentUser) {
       const imgRef = ref(imageDb, `files/${uuid()}`);
       try {
         await uploadBytes(imgRef, img);
         const imgUrl = await getDownloadURL(imgRef);
 
-        // Add the new image to the database
+       
         await addDoc(collection(db, 'images'), {
           url: imgUrl,
           uploaderName: currentUser.displayName || user || 'Anonymous',
@@ -44,13 +44,13 @@ const Gallery = () => {
       } catch (error) {
         toast.error('Failed to upload image: ' + error.message);
       } finally {
-        setUploading(false); // End uploading state
+        setUploading(false); 
       }
     }
   };
 
   const fetchImages = async () => {
-    setFetchSuccessful(true); // Reset fetch successful state
+    setFetchSuccessful(true); 
     try {
       const imagesQuery = query(collection(db, 'images'));
       const imageDocs = await getDocs(imagesQuery);
@@ -61,24 +61,20 @@ const Gallery = () => {
       }));
       setImages(imagesData);
       if (imagesData.length === 0) {
-        setFetchSuccessful(false); // Set to false if no images found
+        setFetchSuccessful(false); 
       }
     } catch (error) {
       toast.error('Failed to fetch images: ' + error.message);
-      setFetchSuccessful(false); // Set to false if there was an error
+      setFetchSuccessful(false); 
     } finally {
-      // Set a timeout for 3 seconds to simulate loader duration
-      const id = setTimeout(() => {
+  
         setLoading(false);
-      }, 3000);
-      setTimeoutId(id); // Save the timeout ID
     }
   };
 
   useEffect(() => {
-    fetchImages(); // Directly fetch images on mount
-    return () => clearTimeout(timeoutId); // Clear timeout on unmount
-  }, [timeoutId]);
+    fetchImages(); 
+  }, []);
 
   const handleFileChange = ({ target }) => {
     setImg(target.files[0]);
