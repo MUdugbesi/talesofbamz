@@ -19,18 +19,16 @@ const Gallery = () => {
   const { userLoggedIn, currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [timeoutId, setTimeoutId] = useState(null); 
   const [fetchSuccessful, setFetchSuccessful] = useState(true);
 
   const handleUploadImage = async () => {
-    setUploading(true); 
+    setUploading(true);
     if (img !== null && currentUser) {
       const imgRef = ref(imageDb, `files/${uuid()}`);
       try {
         await uploadBytes(imgRef, img);
         const imgUrl = await getDownloadURL(imgRef);
 
-       
         await addDoc(collection(db, 'images'), {
           url: imgUrl,
           uploaderName: currentUser.displayName || user || 'Anonymous',
@@ -44,13 +42,13 @@ const Gallery = () => {
       } catch (error) {
         toast.error('Failed to upload image: ' + error.message);
       } finally {
-        setUploading(false); 
+        setUploading(false);
       }
     }
   };
 
   const fetchImages = async () => {
-    setFetchSuccessful(true); 
+    setFetchSuccessful(true);
     try {
       const imagesQuery = query(collection(db, 'images'));
       const imageDocs = await getDocs(imagesQuery);
@@ -61,19 +59,18 @@ const Gallery = () => {
       }));
       setImages(imagesData);
       if (imagesData.length === 0) {
-        setFetchSuccessful(false); 
+        setFetchSuccessful(false);
       }
     } catch (error) {
       toast.error('Failed to fetch images: ' + error.message);
-      setFetchSuccessful(false); 
+      setFetchSuccessful(false);
     } finally {
-  
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchImages(); 
+    fetchImages();
   }, []);
 
   const handleFileChange = ({ target }) => {

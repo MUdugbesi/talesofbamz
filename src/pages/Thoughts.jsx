@@ -48,11 +48,7 @@ const Thoughts = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchThoughts();
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    fetchThoughts();
   }, []);
 
   let [ref, { width }] = useMeasure();
