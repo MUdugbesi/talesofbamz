@@ -9,6 +9,7 @@ import { auth } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { useAuth } from '../../context';
+import { PiStarFourLight } from 'react-icons/pi';
 
 const NavBar = ({
   handleUploadOverlay,
@@ -42,7 +43,7 @@ const NavBar = ({
           <Link to='/'>
             <img src={Logo} className='logo-img' />
           </Link>
-          <p className='text-primary'>TalesofBamz'24</p>
+          <p className='text-[var(--bg)]'>TalesofBamz'24</p>
         </div>
 
         <ul className='navlist'>
@@ -52,38 +53,49 @@ const NavBar = ({
           >
             Home
           </NavLink>
+          <span>
+            <PiStarFourLight className='size-2' />
+          </span>
           <NavLink
             to='/about'
             className={({ isActive }) => `navItem ${isActive ? 'active' : ''}`}
           >
             About
           </NavLink>
+          <span>
+            <PiStarFourLight className='size-2' />
+          </span>
           <NavLink
             to='/gallery'
             className={({ isActive }) => `navItem ${isActive ? 'active' : ''}`}
           >
             Gallery
           </NavLink>
+          <span>
+            <PiStarFourLight className='size-2' />
+          </span>
           <NavLink
             to='/contact'
             className={({ isActive }) => `navItem ${isActive ? 'active' : ''}`}
           >
-            Contact
+            Thought
           </NavLink>
         </ul>
 
-        <UploadButton
-          text='Upload'
-          className={`${
-            userLoggedIn && 'hidden sm:hidden lg:flex'
-          } upload px-5 max-md:hidden flex`}
-          onClick={handleUploadOverlay}
-        />
+        {!userLoggedIn && (
+          <UploadButton
+            text='Upload'
+            className={`${
+              userLoggedIn && 'hidden sm:hidden lg:flex'
+            } upload px-5 max-md:hidden flex`}
+            onClick={handleUploadOverlay}
+          />
+        )}
         {userLoggedIn ? (
-          <div className='text-sm hidden md:flex flex-col lg:inline w-[20%] text-center justify-center items-center'>
+          <div className='text-sm hidden md:flex flex-col lg:inline text-center justify-center items-center'>
             <span>Not {user || currentUser.displayName}?</span>{' '}
             <Button
-              className='font-[500] hover:underline text-purple-500 text-sm'
+              className='font-[500] hover:underline text-purple-500 text-sm hover:cursor-pointer'
               onClick={handleUserLogout}
               text='Log out'
             />
@@ -102,7 +114,9 @@ const NavBar = ({
 
         {mobileToggleMenu && (
           <>
-            <ul className='navlist_mobile'>
+            <ul className='navlist_mobile'
+            data-aos='fade-down-left'
+            >
               <NavLink
                 to='/'
                 className={({ isActive }) =>
@@ -133,7 +147,7 @@ const NavBar = ({
                   `navItem_mobile ${isActive ? 'active' : ''}`
                 }
               >
-                Contact
+                Thought
               </NavLink>
               <UploadButton
                 text='Upload'
@@ -144,7 +158,7 @@ const NavBar = ({
                 <div className='text-sm text-center'>
                   <span>Not {user || currentUser.displayName}?</span>{' '}
                   <Button
-                    className='font-[500] hover:underline text-purple-500 text-sm mt-28'
+                    className='font-[500] hover:underline text-purple-500 text-sm mt-20'
                     onClick={handleUserLogout}
                     text='Log out'
                   />

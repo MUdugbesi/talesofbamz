@@ -8,54 +8,77 @@ import { Button, ImageCard } from '../components';
 import { useAuth } from '../context';
 import { useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { IoMdClose } from 'react-icons/io';
+import Slider from '../components/Swiper/Swiper';
+import Loader from '../components/Loader/Loader';
 
 const Gallery = () => {
   const [img, setImg] = useState(null);
   const [images, setImages] = useState([]);
   const [toggleForm, setToggleForm] = useState(false);
   const { user } = useOutletContext();
-  const [expandImage, setExpandImage] = useState(false);
-  const [expandImgSrc, setExpandImgSrc] = useState(null);
-
   const { userLoggedIn, currentUser } = useAuth();
+  const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(true); // Loading state for fetching images
+  const [timeoutId, setTimeoutId] = useState(null); // To manage the timeout
+  const [fetchSuccessful, setFetchSuccessful] = useState(true); // To determine if fetching was successful
 
   const handleUploadImage = async () => {
+    setUploading(true); // Start uploading state
     if (img !== null && currentUser) {
       const imgRef = ref(imageDb, `files/${uuid()}`);
-      await uploadBytes(imgRef, img);
-      const imgUrl = await getDownloadURL(imgRef);
+      try {
+        await uploadBytes(imgRef, img);
+        const imgUrl = await getDownloadURL(imgRef);
 
-      await addDoc(collection(db, 'images'), {
-        url: imgUrl,
-        uploaderName: currentUser.displayName || user || 'Anonymous',
-        userId: currentUser.uid,
-        timestamp: new Date(),
-      });
+        // Add the new image to the database
+        await addDoc(collection(db, 'images'), {
+          url: imgUrl,
+          uploaderName: currentUser.displayName || user || 'Anonymous',
+          userId: currentUser.uid,
+          timestamp: new Date(),
+        });
 
-      setImg(null);
-      setToggleForm(false);
-      toast.success('Photo uploaded successfully', { className: 'text-sm' });
-      fetchImages();
+        setImg(null);
+        setToggleForm(false);
+        toast.success('Photo uploaded successfully', { className: 'text-sm' });
+      } catch (error) {
+        toast.error('Failed to upload image: ' + error.message);
+      } finally {
+        setUploading(false); // End uploading state
+      }
     }
   };
 
   const fetchImages = async () => {
-    const imagesQuery = query(collection(db, 'images'));
-    const imageDocs = await getDocs(imagesQuery);
+    setFetchSuccessful(true); // Reset fetch successful state
+    try {
+      const imagesQuery = query(collection(db, 'images'));
+      const imageDocs = await getDocs(imagesQuery);
 
-    const imagesData = imageDocs.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    setImages(imagesData);
+      const imagesData = imageDocs.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setImages(imagesData);
+      if (imagesData.length === 0) {
+        setFetchSuccessful(false); // Set to false if no images found
+      }
+    } catch (error) {
+      toast.error('Failed to fetch images: ' + error.message);
+      setFetchSuccessful(false); // Set to false if there was an error
+    } finally {
+      // Set a timeout for 3 seconds to simulate loader duration
+      const id = setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      setTimeoutId(id); // Save the timeout ID
+    }
   };
 
   useEffect(() => {
-    fetchImages();
-  }, []);
+    fetchImages(); // Directly fetch images on mount
+    return () => clearTimeout(timeoutId); // Clear timeout on unmount
+  }, [timeoutId]);
 
   const handleFileChange = ({ target }) => {
     setImg(target.files[0]);
@@ -67,20 +90,13 @@ const Gallery = () => {
 
   const handleFormClose = () => {
     setToggleForm(false);
+    setImg(null);
     toast.error('Upload cancelled by user');
-  };
-  const handleExpandImage = (e, num) => {
-    if ((e, num)) {
-      setExpandImage((prev) => !prev);
-      setExpandImgSrc(e.target.ownerDocument.images[num].src);
-    } else {
-      setExpandImage((prev) => !prev);
-    }
   };
 
   return (
     <>
-      <div>
+      <div className='relative'>
         {toggleForm && (
           <>
             <div className='overlay'></div>
@@ -88,6 +104,7 @@ const Gallery = () => {
               handleFileChange={handleFileChange}
               handleUploadImage={handleUploadImage}
               handleFormClose={handleFormClose}
+              uploading={uploading}
               img={img}
             />
           </>
@@ -100,54 +117,49 @@ const Gallery = () => {
           {userLoggedIn && currentUser && (
             <Button
               onClick={toggleUploadForm}
-              className='upload lg:w-[15%] h-[50px] rounded-full px-4'
+              className='upload h-[40px] lg:w-[15%] md:h-[50px] rounded-full px-4'
               text='Upload Your Photo'
             />
           )}
         </div>
 
-        {expandImage && (
+        {loading ? (
+          <Loader
+            className='relative flex justify-center items-center flex-col gap-3 mt-20'
+            size={70}
+            double
+          />
+        ) : (
           <>
-            <div className='overlay fixed'></div>
-            <div className='mx-auto lg:w-[60%] lg:h-[600px] bg-[#ffffff] image-expand flex justify-center items-center top-20'>
-              <div className='absolute -top-2 -right-2 border border-black bg-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
-                <IoMdClose
-                  className='text-white hover:cursor-pointer active:text-[red]'
-                  onClick={handleExpandImage}
-                />
-              </div>
-              {expandImgSrc ? (
-                <img
-                  src={expandImgSrc}
-                  className='object-contain h-full w-[100%] rounded-lg border-x-2 border-primary object-top'
-                />
+            {fetchSuccessful ? (
+              images.length > 0 ? (
+                <>
+                  <div data-aos='fade-right'>
+                    <Slider gallery={images} className='' />
+                  </div>
+                  <div className='gallery' data-aos='fade-up'>
+                    {images.map((image) => (
+                      <ImageCard
+                        key={image.id}
+                        imgUrl={image.url}
+                        user={image.uploaderName}
+                        timestamp={image.timestamp}
+                      />
+                    ))}
+                  </div>
+                </>
               ) : (
-                <div className='flex justify-center items-center gap-3'>
-                  <AiOutlineLoading3Quarters className='animate-spin text-primary text-2xl' />
-                  <p className='text-center font-[500]'>Image Loading</p>
-                </div>
-              )}
-            </div>
+                <p className='text-center text-red-500 mt-40'>
+                  No Images available😥
+                </p>
+              )
+            ) : (
+              <p className='text-center mt-40 text-red-500'>
+                No Images available😥
+              </p>
+            )}
           </>
         )}
-        <div className='gallery'>
-          {images.map((image, i) => {
-            return (
-              <>
-                <div key={i}>
-                  <ImageCard
-                    imgUrl={image.url}
-                    user={image.uploaderName}
-                    timestamp={image.timestamp}
-                    handleExpandImage={handleExpandImage}
-                    expandImage={expandImage}
-                    num={i}
-                  />
-                </div>
-              </>
-            );
-          })}
-        </div>
       </div>
     </>
   );

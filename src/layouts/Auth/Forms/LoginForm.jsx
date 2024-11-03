@@ -26,6 +26,8 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
     });
   };
 
+  
+
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
@@ -62,7 +64,7 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
 
   return (
     <div className={className}>
-      <form className='form'>
+      <form className='form' data-aos='fade-right'>
         <div className='absolute -top-2 -right-2 border border-black bg-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
           <IoMdClose
             className='text-white hover:cursor-pointer active:text-[red]'
@@ -102,12 +104,12 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
 
           <Button
             className='btn font-[500] gap-2 mt-10 bg-[#780478] text-white hover:opacity-80'
-            text='Sign in'
+            text='Log in'
             onClick={handleLoginFormSubmit}
           />
           <p className='text-sm text-[#00000093] text-end mt-4'>
             Don't have an account?{' '}
-            <Link className='underline' onClick={handleSignUpForm}>
+            <Link className='underline text-blue-300 hover:text-blue-600' onClick={handleSignUpForm}>
               Sign up
             </Link>
           </p>

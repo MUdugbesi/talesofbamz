@@ -120,7 +120,7 @@ const SignUpForm = ({ onClick, onClose, className }) => {
           />
           <p className='text-sm text-[#00000093] text-end mt-4'>
             Already have an account?{' '}
-            <Link className='underline' onClick={onClick}>
+            <Link className='underline text-blue-300 hover:text-blue-600' onClick={onClick}>
               Log in
             </Link>
           </p>
