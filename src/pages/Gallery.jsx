@@ -19,6 +19,7 @@ const Gallery = () => {
   const { userLoggedIn, currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [timeoutId, setTimeoutId] = useState(null);
   const [fetchSuccessful, setFetchSuccessful] = useState(true);
 
   const handleUploadImage = async () => {
@@ -65,13 +66,17 @@ const Gallery = () => {
       toast.error('Failed to fetch images: ' + error.message);
       setFetchSuccessful(false);
     } finally {
-      setLoading(false);
+      const id = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      setTimeoutId(id);
     }
   };
 
   useEffect(() => {
     fetchImages();
-  }, []);
+    return () => clearTimeout(timeoutId);
+  }, [timeoutId]);
 
   const handleFileChange = ({ target }) => {
     setImg(target.files[0]);
