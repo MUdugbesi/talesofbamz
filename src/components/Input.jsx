@@ -8,6 +8,7 @@ const Input = ({
   value,
   type,
   className,
+  disable,
   ...props
 }) => {
   return (
@@ -28,6 +29,7 @@ const Input = ({
             id={label}
             onChange={onChange}
             required={false}
+            disabled={disable}
             {...props}
           />
         </div>

@@ -15,6 +15,7 @@ import 'swiper/css/effect-coverflow';
 import './Swiper.css';
 
 const Slider = ({ gallery }) => {
+  console.log(gallery);
   return (
     <>
       <>
@@ -59,7 +60,9 @@ const Slider = ({ gallery }) => {
               <div className='swiper-button-next slider-arrow'>
                 <FaArrowRight />
               </div>
-              <div className='swiper-pagination'></div>
+              {gallery.length <= 10 && (
+                <div className='swiper-pagination'></div>
+              )}
             </div>
           </Swiper>
         </div>

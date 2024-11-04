@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import { db } from '../../firebase/firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { IoMdClose } from 'react-icons/io';
+import { useAuth } from '../../context';
+import { useOutletContext } from 'react-router-dom';
+import { Capitalise } from '../../utils/Capitalise';
 
 const ThoughtModal = ({
   className,
@@ -13,29 +16,38 @@ const ThoughtModal = ({
   handleToggleThought,
   fetchThoughts,
 }) => {
+  const { user } = useOutletContext();
+  const { currentUser } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    name: currentUser.displayName || user,
     thought: '',
   });
+  const [validLimit, setValidLimit] = useState(false);
+  const wordLimit = 50;
 
-  const handleThoughtChange = ({ target }) => {
-    const { name, value } = target;
-    setFormData({ ...formData, [name]: value });
+  const handleTextChange = ({ target }) => {
+    const inputValue = target.value;
+    const words = inputValue.split(/\s+/).filter(Boolean);
+    if (words.length <= wordLimit) {
+      setValidLimit(true);
+      setFormData({ ...formData, thought: inputValue });
+    } else {
+      toast.error('Not more than 50 words');
+    }
   };
 
   const handleAddThought = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       await addDoc(collection(db, 'thoughts'), {
-        name: formData.name,
+        name: Capitalise(formData.name),
         thought: formData.thought,
         timestamp: new Date(),
       });
       toast.success('Thought added successfully!');
-      setFormData({ name: '', thought: '' });
+      setFormData({ displayName: '', thought: '' });
       setAddThoughtToggle((prev) => !prev);
       fetchThoughts();
     } catch (e) {
@@ -55,7 +67,7 @@ const ThoughtModal = ({
   );
 
   return (
-    <div className={`${className} form max-lg:w-full`}>
+    <div className={`${className} form max-lg:w-full`} data-aos='fade-left'>
       <form className='flex flex-col gap-3 ' onSubmit={handleAddThought}>
         <div className='absolute -top-2 -right-2 border border-black bg-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
           <IoMdClose
@@ -67,14 +79,12 @@ const ThoughtModal = ({
         <Input
           placeholder='Name'
           name='name'
-          value={formData.name}
-          onChange={handleThoughtChange}
+          value={formData.name && Capitalise(formData.name)}
           minLength={3}
+          readOnly
         />
-        {formData.name && formData.name.length < 3 && (
-          <small className='text-red-400'>
-            Name should be more than 3 characters
-          </small>
+        {formData.name && (
+          <small className='text-red-400'>Field above cannot be edited</small>
         )}
         <textarea
           placeholder='Wishes / Thoughts'
@@ -83,7 +93,7 @@ const ThoughtModal = ({
           rows={10}
           name='thought'
           value={formData.thought}
-          onChange={handleThoughtChange}
+          onChange={handleTextChange}
           minLength={10}
         />
         {formData.thought && formData.thought.length < 10 && (
@@ -95,7 +105,9 @@ const ThoughtModal = ({
           type='submit'
           className='contact_btn w-full h-[50px]'
           text={buttonText}
-          disable={formData.name.length < 3 || formData.thought.length < 10}
+          disable={
+            !formData.name || !validLimit || formData.thought.length < 10
+          }
         />
       </form>
     </div>

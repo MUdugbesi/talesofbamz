@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import { db, imageDb } from '../firebase/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
-import { collection, addDoc, query, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  query,
+  getDocs,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
 import ImageUploadModal from './ImageUploadModal';
 import { Button, ImageCard } from '../components';
 import { useAuth } from '../context';
@@ -20,6 +27,9 @@ const Gallery = () => {
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [fetchSuccessful, setFetchSuccessful] = useState(true);
+  const [lastDoc, setLastDoc] = useState(null);
+  const [sliderImages, setSliderImages] = useState([]);
+  const [pageSize, setPageSize] = useState(10);
 
   const handleUploadImage = async () => {
     setUploading(true);
@@ -39,6 +49,7 @@ const Gallery = () => {
         setImg(null);
         setToggleForm(false);
         toast.success('Photo uploaded successfully', { className: 'text-sm' });
+        fetchImages();
       } catch (error) {
         toast.error('Failed to upload image: ' + error.message);
       } finally {
@@ -50,17 +61,31 @@ const Gallery = () => {
   const fetchImages = async () => {
     setFetchSuccessful(true);
     try {
-      const imagesQuery = query(collection(db, 'images'));
+      let imagesQuery;
+      if (lastDoc) {
+        imagesQuery = query(
+          collection(db, 'images'),
+          orderBy('timestamp', 'desc'),
+          limit(pageSize)
+        );
+      } else {
+        imagesQuery = query(
+          collection(db, 'images'),
+          orderBy('timestamp', 'desc'),
+          limit(pageSize)
+        );
+      }
       const imageDocs = await getDocs(imagesQuery);
-
       const imagesData = imageDocs.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setImages(imagesData);
-      if (imagesData.length === 0) {
-        setFetchSuccessful(false);
-      }
+
+      setSliderImages(imagesData);
+      setImages([]);
+      setImages((prev) => [...prev, ...imagesData]);
+      // setLoading(false);
+      if (imagesData.length === 0) setFetchSuccessful(false);
     } catch (error) {
       toast.error('Failed to fetch images: ' + error.message);
       setFetchSuccessful(false);
@@ -69,9 +94,24 @@ const Gallery = () => {
     }
   };
 
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setLoading(false);
+      setPageSize((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
     fetchImages();
-  }, []);
+  }, [pageSize]);
 
   const handleFileChange = ({ target }) => {
     setImg(target.files[0]);
@@ -128,7 +168,7 @@ const Gallery = () => {
               images.length > 0 ? (
                 <>
                   <div data-aos='fade-right'>
-                    <Slider gallery={images} className='' />
+                    <Slider gallery={sliderImages} className='' />
                   </div>
                   <div className='gallery' data-aos='fade-up'>
                     {images.map((image) => (
@@ -140,6 +180,14 @@ const Gallery = () => {
                       />
                     ))}
                   </div>
+                  {!loading && (
+                    <Loader
+                      type='dot'
+                      size={60}
+                      color='white'
+                      className='flex justify-center items-center '
+                    />
+                  )}
                 </>
               ) : (
                 <p className='text-center text-red-500 mt-40'>

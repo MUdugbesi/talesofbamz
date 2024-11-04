@@ -143,7 +143,7 @@
     @apply absolute mx-auto w-full inset-0 top-10;
   }
   .textarea {
-    @apply border outline-none w-full rounded-md p-3 focus:outline-purple-500 outline-offset-0;
+    @apply border outline-none w-full rounded-md p-3 focus:outline-purple-500 outline-offset-0 font-rubik;
   }
   .btn {
     @apply border border-[#acacacb1] h-[55px] p-7 flex justify-center items-center rounded-full text-sm;
@@ -161,8 +161,9 @@
     @apply border border-black w-[250px] h-[200px] rounded-lg m-2 shadow-lg shadow-black object-cover;
   }
 
-  button:disabled {
-    @apply bg-[#00000049] cursor-not-allowed shadow-none;
+  button:disabled,
+  button:disabled:hover {
+    @apply bg-[#00000049] cursor-not-allowed shadow-none text-black;
   }
 }
 @layer utilities {
@@ -176,15 +177,11 @@
   .signedin_user {
     @apply font-mono text-start w-[80%] mx-auto mt-5 text-[20px] pl-5;
   }
-  /* .glass {
-    background: linear-gradient(135deg, var(--bg), rgba(225, 225, 225, 0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  } */
-
   .glass_container {
-    @apply w-[250px] h-[110px];
+    @apply w-[250px] min-h-[110px] h-auto;
+  }
+
+  .sentence-case::first-letter {
+    @apply uppercase text-[red];
   }
 }
