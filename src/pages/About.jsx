@@ -34,7 +34,7 @@ const About = () => {
           <h2 className='text-center font-[500] text-md p-2 uppercase text-[#000000d7]'>
             Why This Site?
           </h2>
-          <p className='text-justify animate__animated animate__fadeInLeft animate__delay-2s'>
+          <p className='text-justify animate__animated animate__fadeInLeft animate__delay-1s'>
             Our wedding day is one of the most important days of our lives, and
             we didn’t want a single moment to be forgotten. That’s why we built
             this website — to gather and share the beautiful memories from our
@@ -70,7 +70,7 @@ const About = () => {
             <li
               className='pb-4 animate__animated animate__fadeInRight animate__delay-1s'
               data-aos='fade-right'
-              data-aos-delay='2000'
+              data-aos-delay='1000'
             >
               <span className='font-[500] text-black'>View Our Gallery: </span>
               We’ve gathered some of our favorite photos from the wedding day,
@@ -80,7 +80,7 @@ const About = () => {
             <li
               className='animate__animated animate__fadeInUp animate__delay-2s'
               data-aos='fade-left'
-              data-aos-delay='3000'
+              data-aos-delay='1000'
             >
               <span className='font-[500] text-black '>Stay Connected: </span>
               Our journey doesn’t end at the wedding. Check back for updates as
@@ -90,10 +90,10 @@ const About = () => {
           </ol>
         </div>
         <div className='' data-aos='fade-right' data-aos-delay='2000'>
-          <h3 className='text-[#000000d7] font-[500] animate__animated animate__wobble animate__delay-2s'>
+          <h3 className='text-[#000000d7] font-[500] animate__animated animate__wobble animate__delay-1s'>
             A Special Thanks
           </h3>
-          <p className='mt-4 italic animate__animated animate__fadeInUp animate__delay-2s'>
+          <p className='mt-4 italic animate__animated animate__fadeInUp animate__delay-1s'>
             To all of our loved ones, thank you for being part of our story.
             You’ve shaped who we are as individuals and as a couple, and we’re
             beyond grateful to celebrate our wedding with you. Your presence on
@@ -102,7 +102,7 @@ const About = () => {
             you have shown us. We can’t wait to celebrate this joyful day with
             all of you by our side.
           </p>
-          <p className='mt-5 animate__animated animate__fadeInUp animate__delay-3s'>
+          <p className='mt-5 animate__animated animate__fadeInUp animate__delay-2s'>
             With love and gratitude,
             <br />
             <span className='italic text-primary'>TalesofBamz'24</span>

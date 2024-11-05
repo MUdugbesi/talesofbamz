@@ -158,7 +158,7 @@
     @apply w-full h-full hidden;
   }
   .image-card {
-    @apply border border-black w-[250px] h-[200px] rounded-lg m-2 shadow-lg shadow-black object-cover;
+    @apply border border-black w-[250px] h-[200px] rounded-lg m-2 shadow-lg shadow-black object-cover object-left-top;
   }
 
   button:disabled,
