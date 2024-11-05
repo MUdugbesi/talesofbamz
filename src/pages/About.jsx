@@ -4,11 +4,8 @@ const About = () => {
   return (
     <div className='about font-rubik'>
       <div className='flex flex-col h-[90%] justify-evenly'>
-        <div className='p-6 text-[#00000093]'>
-          <h1
-            className='text-center font-[500] text-2xl p-2 uppercase text-[#000000d7]'
-            data-aos='fade-right'
-          >
+        <div className='p-6 text-[#00000093]' data-aos='fade-right'>
+          <h1 className='text-center font-[500] text-2xl p-2 uppercase text-[#000000d7]'>
             Our Journey Together
           </h1>
           <p className='text-justify animate__animated animate__fadeInLeft'>
@@ -29,12 +26,12 @@ const About = () => {
           </p>
         </div>
 
-        <div className='p-6 text-[#00000093]'>
-          <h2
-            className='text-center font-[500] text-md p-2 uppercase text-[#000000d7]'
-            data-aos='fade-right'
-            data-aos-delay='2000'
-          >
+        <div
+          className='p-6 text-[#00000093]'
+          data-aos='fade-right'
+          data-aos-delay='1000'
+        >
+          <h2 className='text-center font-[500] text-md p-2 uppercase text-[#000000d7]'>
             Why This Site?
           </h2>
           <p className='text-justify animate__animated animate__fadeInLeft animate__delay-2s'>
@@ -58,7 +55,11 @@ const About = () => {
             How It Works
           </h3>
           <ol className='list-decimal text-justify'>
-            <li className='pb-4 animate__animated animate__slideInUp'>
+            <li
+              className='pb-4 animate__animated animate__slideInUp'
+              data-aos='fade-left'
+              data-aos-delay='1000'
+            >
               <span className='font-[500] text-black'>
                 Upload Your Photos:{' '}
               </span>
@@ -66,13 +67,21 @@ const About = () => {
               We’d love to see them! You can easily upload your photos here so
               we can relive those memories from your perspective.
             </li>
-            <li className='pb-4 animate__animated animate__fadeInRight animate__delay-1s'>
+            <li
+              className='pb-4 animate__animated animate__fadeInRight animate__delay-1s'
+              data-aos='fade-right'
+              data-aos-delay='2000'
+            >
               <span className='font-[500] text-black'>View Our Gallery: </span>
               We’ve gathered some of our favorite photos from the wedding day,
               and we invite you to explore the gallery and remember the magic
               with us.
             </li>
-            <li className='animate__animated animate__fadeInUp animate__delay-2s'>
+            <li
+              className='animate__animated animate__fadeInUp animate__delay-2s'
+              data-aos='fade-left'
+              data-aos-delay='3000'
+            >
               <span className='font-[500] text-black '>Stay Connected: </span>
               Our journey doesn’t end at the wedding. Check back for updates as
               we continue to share our life’s moments, adventures, and
@@ -80,12 +89,8 @@ const About = () => {
             </li>
           </ol>
         </div>
-        <div className=''>
-          <h3
-            className='text-[#000000d7] font-[500] animate__animated animate__wobble animate__delay-2s'
-            data-aos='fade-right'
-            data-aos-delay='2000'
-          >
+        <div className='' data-aos='fade-right' data-aos-delay='2000'>
+          <h3 className='text-[#000000d7] font-[500] animate__animated animate__wobble animate__delay-2s'>
             A Special Thanks
           </h3>
           <p className='mt-4 italic animate__animated animate__fadeInUp animate__delay-2s'>

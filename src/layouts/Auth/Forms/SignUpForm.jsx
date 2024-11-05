@@ -77,7 +77,7 @@ const SignUpForm = ({ onClick, onClose, className }) => {
           />
           <div className='flex justify-center items-center gap-2 mt-5 mb-5'>
             <hr className='border border-[#acacacb1] w-[50px] md:w-[100px]' />
-            <p className='md:text-sm text-[12px]'>or sign up with email</p>
+            <p className='md:text-[10px] text-[10px]'>or sign up with email</p>
             <hr className='border border-[#acacacb1] w-[50px] md:w-[100px]' />
           </div>
 
@@ -118,9 +118,12 @@ const SignUpForm = ({ onClick, onClose, className }) => {
             text='Create Account'
             onClick={handleSignUpSubmit}
           />
-          <p className='text-sm text-[#00000093] text-end mt-4'>
+          <p className='md:text-sm text-[#00000093] text-end mt-4 text-[10px]'>
             Already have an account?{' '}
-            <Link className='underline text-blue-300 hover:text-blue-600' onClick={onClick}>
+            <Link
+              className='underline text-blue-300 hover:text-blue-600'
+              onClick={onClick}
+            >
               Log in
             </Link>
           </p>

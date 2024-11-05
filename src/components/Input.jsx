@@ -19,7 +19,7 @@ const Input = ({
             {label}
           </label>
         )}
-        <div className='border border-[#acacacb1] h-[54px] rounded-lg'>
+        <div className='border border-[#acacacb1] h-[45px] md:h-[54px] rounded-lg'>
           <input
             type={type}
             name={name}

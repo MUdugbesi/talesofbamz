@@ -68,7 +68,7 @@ const RootLayout = () => {
             <LoginForm
               handleUploadOverlay={toggleSigninForm}
               handleSignUpForm={handleSignUpForm}
-              className='absolute mx-auto w-screen'
+              className='absolute mx-auto w-full'
               user={user}
             />
           </>
@@ -78,7 +78,7 @@ const RootLayout = () => {
             <SignUpForm
               onClick={handleSignUpForm}
               onClose={handleSignUpFormClose}
-              className='absolute mx-auto w-screen'
+              className='absolute mx-auto w-full'
               user={user}
             />
           </>

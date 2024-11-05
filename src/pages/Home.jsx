@@ -78,7 +78,10 @@ const Home = () => {
           </div>
         </div>
 
-        <div className='text-[12px] md:text-[16px] w-[90%] md:w-[70%] mx-auto h-full flex justify-center items-center text-justify text-wrap animate__animated animate__bounceInDown animate__delay-2s'>
+        <div
+          className='text-[12px] md:text-[16px] w-[90%] md:w-[70%] mx-auto h-full flex justify-center items-center text-justify text-wrap animate__animated animate__bounceInDown animate__delay-2s'
+          data-aos='fade-down'
+        >
           Welcome to the celebration of love and togetherness! Join us as we
           embark on the most beautiful chapter of our lives. We are thrilled to
           have you share in the joy of our special day.

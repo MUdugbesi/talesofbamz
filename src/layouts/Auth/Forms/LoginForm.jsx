@@ -26,8 +26,6 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
     });
   };
 
-  
-
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
@@ -46,14 +44,11 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
 
   const handleLoginWithGoogle = async (e) => {
     e.preventDefault();
-    // / Sign in using a popup.
     const provider = new GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     const result = await signInWithPopup(auth, provider);
-    // The signed-in user info.
     const user = result.user;
-    // This gives you a Google Access Token.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     if (user && token) {
@@ -64,7 +59,10 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
 
   return (
     <div className={className}>
-      <form className='form' data-aos='fade-right'>
+      <form
+        className='form flex justify-center items-center'
+        data-aos='fade-right'
+      >
         <div className='absolute -top-2 -right-2 border border-black bg-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
           <IoMdClose
             className='text-white hover:cursor-pointer active:text-[red]'
@@ -80,7 +78,7 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
           />
           <div className='flex justify-center items-center gap-2 mt-5 mb-5'>
             <hr className='border border-[#acacacb1] w-[50px] md:w-[100px]' />
-            <p className='md:text-sm text-[10px]'>or sign in with email</p>
+            <p className='text-[10px]'>or sign in with email</p>
             <hr className='border border-[#acacacb1 w-[50px] md:w-[100px]' />
           </div>
 
@@ -107,9 +105,12 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
             text='Log in'
             onClick={handleLoginFormSubmit}
           />
-          <p className='text-sm text-[#00000093] text-end mt-4'>
+          <p className='md:text-sm text-[#00000093] text-end mt-4 text-[10px]'>
             Don't have an account?{' '}
-            <Link className='underline text-blue-300 hover:text-blue-600' onClick={handleSignUpForm}>
+            <Link
+              className='underline text-blue-300 hover:text-blue-600'
+              onClick={handleSignUpForm}
+            >
               Sign up
             </Link>
           </p>

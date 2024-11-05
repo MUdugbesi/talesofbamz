@@ -16,8 +16,8 @@ const Thoughts = () => {
   const [addThoughtToggle, setAddThoughtToggle] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const slow_duration = 90;
-  const fast_duration = 30;
+  const slow_duration = 100;
+  const fast_duration = 70;
 
   const [duration, setDuration] = useState(fast_duration);
 
@@ -114,7 +114,7 @@ const Thoughts = () => {
         <Button
           type='button'
           text='Add wishes'
-          className='upload flex justify-center w-full md:w-[40%] h-[50px] rounded-full max-lg:mx-auto mt-5'
+          className='upload flex justify-center w-[50%] md:w-[40%] h-[50px] rounded-full max-lg:mx-auto mt-5'
           onClick={handleToggleThought}
           disable={!currentUser && !userLoggedIn}
         />
@@ -135,7 +135,7 @@ const Thoughts = () => {
       )}
 
       {!userLoggedIn && !currentUser && (
-        <p className='text-red-400 text-sm italic mt-3'>
+        <p className='text-red-400 text-[12px] md:text-sm italic mt-3 text-center w-[80%] mx-auto md:w-full'>
           Please Log in to add your wishes/thoughts
         </p>
       )}
