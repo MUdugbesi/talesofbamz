@@ -66,7 +66,7 @@ const ContactForm = ({ className, handleContactForm, setContactFormPop }) => {
         <img
           src={contact}
           alt='mail symbol'
-          className='w-[50%] md:w-auto h-[10vh] md:h-auto'
+          className='w-[50%] md:w-auto h-auto md:h-auto'
         />
       </div>
       <form className='flex flex-col gap-5' onSubmit={handleSubmitContact}>
