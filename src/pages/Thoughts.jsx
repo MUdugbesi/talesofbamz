@@ -17,7 +17,7 @@ const Thoughts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const slow_duration = 100;
-  const fast_duration = 70;
+  const fast_duration = 30;
 
   const [duration, setDuration] = useState(fast_duration);
 
