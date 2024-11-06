@@ -9,17 +9,18 @@ const Input = ({
   type,
   className,
   disable,
+  required,
   ...props
 }) => {
   return (
     <>
       <div>
         {label && (
-          <label htmlFor={label} className='text-sm mb-1'>
+          <label htmlFor={label} className='text-[10px] md:text-sm mb-1'>
             {label}
           </label>
         )}
-        <div className='border border-[#acacacb1] h-[45px] md:h-[54px] rounded-lg'>
+        <div className='border border-[#acacacb1] h-[40px] md:h-[54px] rounded-lg'>
           <input
             type={type}
             name={name}
@@ -28,7 +29,7 @@ const Input = ({
             placeholder={placeholder}
             id={label}
             onChange={onChange}
-            required={false}
+            required={required}
             disabled={disable}
             {...props}
           />

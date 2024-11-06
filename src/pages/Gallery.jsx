@@ -26,10 +26,11 @@ const Gallery = () => {
   const { userLoggedIn, currentUser } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(true);
   const [fetchSuccessful, setFetchSuccessful] = useState(true);
   const [lastDoc, setLastDoc] = useState(null);
   const [sliderImages, setSliderImages] = useState([]);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
 
   const handleUploadImage = async () => {
     setUploading(true);
@@ -84,7 +85,8 @@ const Gallery = () => {
       setSliderImages(imagesData);
       setImages([]);
       setImages((prev) => [...prev, ...imagesData]);
-      // setLoading(false);
+      setLoading(false);
+      setLoadingMore(false);
       if (imagesData.length === 0) setFetchSuccessful(false);
     } catch (error) {
       toast.error('Failed to fetch images: ' + error.message);
@@ -96,11 +98,11 @@ const Gallery = () => {
 
   const handleScroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      window.innerHeight + document.documentElement.scrollTop + 10 >=
       document.documentElement.scrollHeight
     ) {
-      setLoading(false);
       setPageSize((prev) => prev + 1);
+      setLoadingMore(true);
     }
   };
 
@@ -180,10 +182,10 @@ const Gallery = () => {
                       />
                     ))}
                   </div>
-                  {!loading && (
+                  {loadingMore && (
                     <Loader
                       type='dot'
-                      size={60}
+                      size={40}
                       color='white'
                       className='flex justify-center items-center '
                     />
@@ -191,12 +193,12 @@ const Gallery = () => {
                 </>
               ) : (
                 <p className='text-center text-red-500 mt-40'>
-                  No Images available😥
+                  No Images available yet, add yours!
                 </p>
               )
             ) : (
               <p className='text-center mt-40 text-red-500'>
-                No Images available😥
+                No Images available yet, add yours!
               </p>
             )}
           </>

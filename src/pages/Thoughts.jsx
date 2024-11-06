@@ -135,7 +135,7 @@ const Thoughts = () => {
       )}
 
       {!userLoggedIn && !currentUser && (
-        <p className='text-red-400 text-[12px] md:text-sm italic mt-3 text-center w-[80%] mx-auto md:w-full'>
+        <p className='text-red-500 text-[10px] md:text-sm italic mt-3 text-center w-[80%] mx-auto md:w-full'>
           Please Log in to add your wishes/thoughts
         </p>
       )}
@@ -148,7 +148,7 @@ const Thoughts = () => {
         />
       ) : error ? (
         <p className='text-center mt-20 text-red-500'>
-          No thoughts available😔
+          No thoughts available yet, add yours!
         </p>
       ) : (
         <div

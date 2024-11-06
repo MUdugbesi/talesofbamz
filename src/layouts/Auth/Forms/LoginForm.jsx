@@ -10,9 +10,14 @@ import {
 } from 'firebase/auth';
 
 import { toast } from 'react-toastify';
+import { emailRegex } from '../../../utils/Capitalise';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import Loader from '../../../components/Loader/Loader';
 
 const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
   const navigate = useNavigate();
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [showPassword, setShowPassord] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -28,17 +33,26 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
 
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
+    setLoggingIn(true);
     const { email, password } = formData;
-    try {
-      const loggedIn = await signInWithEmailAndPassword(auth, email, password);
-      if (loggedIn) {
-        toast.success('User logged in successfully');
-      } else {
+
+    if (emailRegex.test(email)) {
+      try {
+        const loggedIn = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        if (loggedIn) {
+          toast.success('User logged in successfully');
+        } else {
+          toast.error('Error signing in - check credentials and try again');
+        }
+      } catch (e) {
+        console.error(e);
         toast.error('Error signing in - check credentials and try again');
+        setLoggingIn(false);
       }
-    } catch (e) {
-      console.error(e.message);
-      toast.error('Error signing in - check credentials and try again');
     }
   };
 
@@ -56,7 +70,9 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
       toast.success('User logged in successfully');
     }
   };
-
+  const handleShowPassword = () => {
+    setShowPassord((prev) => !prev);
+  };
   return (
     <div className={className}>
       <form
@@ -89,21 +105,45 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
             onChange={handleLoginChange}
             value={formData.email}
           />
-          <p className='underline text-end text-sm mb-2 mt-2 hover:cursor-pointer'>
+          {formData.email && !emailRegex.test(formData.email) && (
+            <small className='text-red-400 text-[10px]'>
+              Please enter a valid email address
+            </small>
+          )}
+          <p className='underline text-end text-[10px] md:text-sm  mb-2 mt-2 hover:cursor-pointer'>
             Forgot?
           </p>
-          <Input
-            placeholder='Password'
-            name='password'
-            type='password'
-            onChange={handleLoginChange}
-            value={formData.password}
-          />
+          <div className='relative'>
+            <Input
+              placeholder='Password'
+              name='password'
+              type={showPassword && 'password'}
+              onChange={handleLoginChange}
+              value={formData.password}
+            />
+            <div className='absolute right-4 top-3 md:top-5'>
+              {!showPassword ? (
+                <FaEye onClick={handleShowPassword} />
+              ) : (
+                <FaEyeSlash onClick={handleShowPassword} />
+              )}
+            </div>
+          </div>
 
           <Button
             className='btn font-[500] gap-2 mt-10 bg-[#780478] text-white hover:opacity-80'
-            text='Log in'
+            text={
+              !loggingIn ? (
+                'Log in'
+              ) : (
+                <div className='flex gap-2'>
+                  Logging in
+                  <Loader type='spin' size={20} color='#fff' />
+                </div>
+              )
+            }
             onClick={handleLoginFormSubmit}
+            disable={!emailRegex.test(formData.email) || !formData.password}
           />
           <p className='md:text-sm text-[#00000093] text-end mt-4 text-[10px]'>
             Don't have an account?{' '}

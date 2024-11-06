@@ -26,6 +26,19 @@ const Loader = ({ className, size, single, double, type, color }) => {
           />
         </>
       )}
+      {type === 'spin' && (
+        <TailSpin
+          visible={true}
+          height={size}
+          width={size}
+          color={color || 'white'}
+          ariaLabel='tail-spin-loading'
+          radius='1'
+          wrapperStyle={{}}
+          wrapperClass=''
+        />
+      )}
+      
       {(single || type === 'dot') && (
         <ThreeDots
           visible={true}

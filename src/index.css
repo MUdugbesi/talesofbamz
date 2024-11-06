@@ -105,7 +105,7 @@
   }
 
   .contact_btn {
-    @apply bg-primary text-white p-3 rounded-3xl;
+    @apply bg-primary text-white p-3 rounded-3xl w-[50%] mx-auto md:w-full;
   }
   .home-desc .title {
     @apply uppercase font-rubik text-5xl md:text-6xl leading-[60px] md:leading-[75px] p-2 max-lg:text-center;
@@ -129,11 +129,11 @@
   .form,
   .upload_form,
   .image-expand {
-    @apply w-[full] md:w-[60%] lg:w-[28vw] min-h-[50vh] h-auto mx-auto rounded-xl p-6 md:p-14 bg-white shadow-md shadow-black relative z-50 top-10;
+    @apply w-[90%] md:w-[70%] lg:w-[28vw] min-h-[50vh] h-auto mx-auto rounded-xl p-6 md:p-14 bg-white shadow-md shadow-black relative z-50 top-10;
   }
 
   .contact_form {
-    @apply w-[95%] md:w-[90%] lg:w-[50%];
+    @apply w-[90%] md:w-[90%] lg:w-[50%];
   }
 
   .h1_form {
@@ -146,13 +146,13 @@
     @apply border outline-none w-full rounded-md p-3 focus:outline-purple-500 outline-offset-0 font-rubik;
   }
   .btn {
-    @apply border border-[#acacacb1] h-[40px] md:h-[55px] mx-auto w-[70%] md:w-full p-5 md:p-7 flex justify-center items-center rounded-full text-[12px] md:text-sm;
+    @apply border border-[#acacacb1] h-[40px] md:h-[55px] mx-auto w-[70%] md:w-[80%] lg:w-full p-5 md:p-7 flex justify-center items-center rounded-full text-[10px] md:text-sm;
   }
   .input {
-    @apply text-sm h-[45px] md:text-[16px] md:h-full w-full pl-4 caret-purple-500 bg-transparent rounded-lg outline-none focus:outline-purple-500 outline-offset-0;
+    @apply text-sm h-[38px] text-[12px] md:text-[16px] md:h-full w-full pl-4 caret-purple-500 bg-transparent rounded-lg outline-none focus:outline-purple-500 outline-offset-0;
   }
   .input::placeholder {
-    @apply font-roboto tracking-wide text-sm;
+    @apply font-roboto tracking-wide text-[10px] md:text-sm;
   }
   .file-input {
     @apply w-full h-full hidden;
