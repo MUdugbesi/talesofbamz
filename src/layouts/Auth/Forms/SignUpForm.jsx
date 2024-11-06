@@ -49,6 +49,7 @@ const SignUpForm = ({ onClick, onClose, className }) => {
       email,
       password
     );
+    
     try {
       if (validatedCredentials) {
         const signedUp = await createUserWithEmailAndPassword(
@@ -64,11 +65,7 @@ const SignUpForm = ({ onClick, onClose, className }) => {
             name: name,
             username: username,
           });
-          navigate('/');
           toast.success('User account created successfully');
-        } else {
-          toast.error('Check credentials and try again');
-          setCreatingAccount(false);
         }
       } else {
         toast.error('Check credentials and try again');

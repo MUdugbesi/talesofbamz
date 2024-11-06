@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import { toast } from 'react-toastify';
@@ -73,6 +74,25 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
   const handleShowPassword = () => {
     setShowPassord((prev) => !prev);
   };
+
+  const handleResetPassword = async () => {
+    const { email } = formData;
+    const actionCodeSettings = {
+      url: 'https://talesofbamz24.netlify.app',
+      handleCodeInApp: true,
+    };
+    try {
+      if (email) {
+        await sendPasswordResetEmail(auth, email, actionCodeSettings);
+        toast.success(`Password reset link sent to ${email}`);
+      } else {
+        toast.error(`Enter a valid credential`);
+      }
+    } catch (e) {
+      toast.error('Error', e.message);
+    }
+  };
+
   return (
     <div className={className}>
       <form
@@ -110,7 +130,10 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
               Please enter a valid email address
             </small>
           )}
-          <p className='underline text-end text-[10px] md:text-sm  mb-2 mt-2 hover:cursor-pointer'>
+          <p
+            className='underline text-end text-[10px] md:text-sm  mb-2 mt-2 hover:cursor-pointer'
+            onClick={handleResetPassword}
+          >
             Forgot?
           </p>
           <div className='relative'>
