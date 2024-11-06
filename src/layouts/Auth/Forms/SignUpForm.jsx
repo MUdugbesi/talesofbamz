@@ -21,10 +21,10 @@ const SignUpForm = ({ onClick, onClose, className }) => {
   const [passwordValidations, setPasswordValidations] = useState({});
 
   const [formData, setFormData] = useState({
-    name: 'Marvelous',
-    username: 'sparkle',
-    email: 'udugbesimarves@gmail.com',
-    password: 'wewesco50#',
+    name: '',
+    username: '',
+    email: '',
+    password: '',
   });
   const handleSignupChange = (e) => {
     const { name, value } = e.target;
