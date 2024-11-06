@@ -156,7 +156,7 @@ const NavBar = ({
                 <div className='text-sm text-center'>
                   <span>Not {user || currentUser.displayName}?</span>{' '}
                   <Button
-                    className='font-[500] hover:underline text-purple-500 text-sm mt-20'
+                    className='font-[500] hover:underline text-[var(--bg)] text-sm mt-20'
                     onClick={handleUserLogout}
                     text='Log out'
                   />
