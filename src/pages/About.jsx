@@ -26,11 +26,7 @@ const About = () => {
           </p>
         </div>
 
-        <div
-          className='p-6 text-[#00000093]'
-          data-aos='fade-right'
-          data-aos-delay='1000'
-        >
+        <div className='p-6 text-[#00000093]' data-aos='fade-right'>
           <h2 className='text-center font-[500] text-md p-2 uppercase text-[#000000d7]'>
             Why This Site?
           </h2>
@@ -55,11 +51,7 @@ const About = () => {
             How It Works
           </h3>
           <ol className='list-decimal text-justify'>
-            <li
-              className='pb-4 animate__animated animate__slideInUp'
-              data-aos='fade-left'
-              data-aos-delay='1000'
-            >
+            <li className='pb-4' data-aos='fade-left'>
               <span className='font-[500] text-black'>
                 Upload Your Photos:{' '}
               </span>
@@ -67,21 +59,13 @@ const About = () => {
               We’d love to see them! You can easily upload your photos here so
               we can relive those memories from your perspective.
             </li>
-            <li
-              className='pb-4 animate__animated animate__fadeInRight animate__delay-1s'
-              data-aos='fade-right'
-              data-aos-delay='1000'
-            >
+            <li className='pb-4' data-aos='fade-right'>
               <span className='font-[500] text-black'>View Our Gallery: </span>
               We’ve gathered some of our favorite photos from the wedding day,
               and we invite you to explore the gallery and remember the magic
               with us.
             </li>
-            <li
-              className='animate__animated animate__fadeInUp animate__delay-2s'
-              data-aos='fade-left'
-              data-aos-delay='1000'
-            >
+            <li data-aos='fade-left'>
               <span className='font-[500] text-black '>Stay Connected: </span>
               Our journey doesn’t end at the wedding. Check back for updates as
               we continue to share our life’s moments, adventures, and
@@ -89,11 +73,15 @@ const About = () => {
             </li>
           </ol>
         </div>
-        <div className='' data-aos='fade-right' data-aos-delay='2000'>
-          <h3 className='text-[#000000d7] font-[500] animate__animated animate__wobble animate__delay-1s'>
+        <div className=''>
+          <h3
+            className='text-[#000000d7] font-[500]'
+            data-aos='fade-right'
+            data-aos-delay='1000'
+          >
             A Special Thanks
           </h3>
-          <p className='mt-4 italic animate__animated animate__fadeInUp animate__delay-1s'>
+          <p className='mt-4 italic' data-aos='fade-left' data-aos-delay='1000'>
             To all of our loved ones, thank you for being part of our story.
             You’ve shaped who we are as individuals and as a couple, and we’re
             beyond grateful to celebrate our wedding with you. Your presence on

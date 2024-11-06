@@ -114,9 +114,7 @@ const NavBar = ({
 
         {mobileToggleMenu && (
           <>
-            <ul className='navlist_mobile'
-            data-aos='fade-down-left'
-            >
+            <ul className='navlist_mobile' data-aos='fade-down-left'>
               <NavLink
                 to='/'
                 className={({ isActive }) =>

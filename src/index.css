@@ -172,7 +172,10 @@
   }
 
   .mobile_icon {
-    @apply flex md:hidden text-[26px] cursor-pointer;
+    @apply flex md:hidden text-[26px];
+  }
+  .mobile_icon:hover{
+    @apply cursor-pointer
   }
   .signedin_user {
     @apply font-mono text-start w-[80%] mx-auto mt-5 text-[20px] pl-5;
