@@ -18,6 +18,7 @@ const ThoughtModal = ({
 }) => {
   const { user } = useOutletContext();
   const { currentUser } = useAuth();
+  console.log(currentUser);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: currentUser.displayName || user,

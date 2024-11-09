@@ -63,6 +63,7 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
       if (user) {
         await user.reload(); // Reload user to get the latest data if needed
       }
+      console.log(user);
     });
     return () => unsubscribe(); // Cleanup on component unmount
   }, [auth]);

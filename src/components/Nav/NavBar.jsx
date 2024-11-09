@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate, useOutletContext } from 'react-router-dom';
 import Logo from '../../assets/logo1.png';
 import UploadButton from '../Button/UploadButton';
 import Button from '../Button/Button';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { useAuth } from '../../context';
 import { PiStarFourLight } from 'react-icons/pi';
+import { collection, getDocs } from 'firebase/firestore';
 
 const NavBar = ({
   handleUploadOverlay,
@@ -35,9 +36,8 @@ const NavBar = ({
       toast.error('Unable to sign out user');
     }
   };
-  const displayName =
-    user || currentUser?.displayName || currentUser?.email || 'Anonymous';
 
+  const displayName = user || currentUser.displayName || currentUser.email;
   return (
     <>
       <nav className='nav'>
