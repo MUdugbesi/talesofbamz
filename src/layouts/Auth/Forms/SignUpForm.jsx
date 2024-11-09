@@ -13,7 +13,7 @@ import {
   emailRegex,
 } from '../../../utils/Capitalise';
 import Loader from '../../../components/Loader/Loader';
-import firebase from 'firebase';
+
 
 const SignUpForm = ({ onClick, onClose, className }) => {
   const navigate = useNavigate();

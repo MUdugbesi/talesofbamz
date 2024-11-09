@@ -35,6 +35,8 @@ const NavBar = ({
       toast.error('Unable to sign out user');
     }
   };
+  const displayName =
+    user || currentUser?.displayName || currentUser?.email || 'Anonymous';
 
   return (
     <>
@@ -93,14 +95,7 @@ const NavBar = ({
         )}
         {userLoggedIn ? (
           <div className='text-sm hidden md:flex flex-col lg:inline text-center justify-center items-center'>
-            <span>
-              Not{' '}
-              {user ||
-                currentUser.displayName ||
-                currentUser.email ||
-                'Anonymous'}
-              ?
-            </span>{' '}
+            <span>Not {displayName}?</span>{' '}
             <Button
               className='font-[500] hover:underline text-purple-500 text-sm hover:cursor-pointer'
               onClick={handleUserLogout}
