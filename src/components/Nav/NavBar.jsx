@@ -37,7 +37,7 @@ const NavBar = ({
     }
   };
 
-  const displayName = user || currentUser.displayName || currentUser.email;
+  const displayName = user || currentUser?.displayName || currentUser?.email;
   return (
     <>
       <nav className='nav'>

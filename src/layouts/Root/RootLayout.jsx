@@ -44,7 +44,6 @@ const RootLayout = () => {
     getDoc();
   }, [currentUser, user]);
 
-  console.log(user);
   const toggleSigninForm = () => {
     if (userLoggedIn) {
       navigate('/gallery');
