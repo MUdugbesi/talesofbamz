@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input, Button } from '../../../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdClose } from 'react-icons/io';
@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 import { toast } from 'react-toastify';
@@ -56,6 +57,15 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
       }
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await user.reload(); // Reload user to get the latest data if needed
+      }
+    });
+    return () => unsubscribe(); // Cleanup on component unmount
+  }, [auth]);
 
   const handleLoginWithGoogle = async (e) => {
     e.preventDefault();

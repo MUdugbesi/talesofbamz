@@ -13,6 +13,7 @@ import {
   emailRegex,
 } from '../../../utils/Capitalise';
 import Loader from '../../../components/Loader/Loader';
+import firebase from 'firebase';
 
 const SignUpForm = ({ onClick, onClose, className }) => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const SignUpForm = ({ onClick, onClose, className }) => {
       email,
       password
     );
-    
+
     try {
       if (validatedCredentials) {
         const signedUp = await createUserWithEmailAndPassword(
@@ -58,6 +59,9 @@ const SignUpForm = ({ onClick, onClose, className }) => {
           password
         );
         const user = auth.currentUser;
+        console.log(user);
+        const user2 = firebase.auth();
+        console.log(user2);
         if (signedUp && user) {
           await setDoc(doc(db, 'Users', user.uid), {
             id: user.uid,
