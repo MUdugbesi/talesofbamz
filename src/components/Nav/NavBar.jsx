@@ -93,7 +93,14 @@ const NavBar = ({
         )}
         {userLoggedIn ? (
           <div className='text-sm hidden md:flex flex-col lg:inline text-center justify-center items-center'>
-            <span>Not {user || currentUser.displayName}?</span>{' '}
+            <span>
+              Not{' '}
+              {user ||
+                currentUser.displayName ||
+                currentUser.email ||
+                'Anonymous'}
+              ?
+            </span>{' '}
             <Button
               className='font-[500] hover:underline text-purple-500 text-sm hover:cursor-pointer'
               onClick={handleUserLogout}
@@ -154,7 +161,14 @@ const NavBar = ({
               />
               {user && userLoggedIn ? (
                 <div className='text-sm text-center'>
-                  <span>Not {user || currentUser.displayName}?</span>{' '}
+                  <span>
+                    Not{' '}
+                    {user ||
+                      currentUser.displayName ||
+                      currentUser.email ||
+                      'Anonymous'}
+                    ?
+                  </span>{' '}
                   <Button
                     className='font-[500] hover:underline text-[var(--bg)] text-sm mt-20'
                     onClick={handleUserLogout}
