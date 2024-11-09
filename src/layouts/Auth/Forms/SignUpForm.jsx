@@ -59,9 +59,6 @@ const SignUpForm = ({ onClick, onClose, className }) => {
           password
         );
         const user = auth.currentUser;
-        console.log(user);
-        const user2 = firebase.auth();
-        console.log(user2);
         if (signedUp && user) {
           await setDoc(doc(db, 'Users', user.uid), {
             id: user.uid,

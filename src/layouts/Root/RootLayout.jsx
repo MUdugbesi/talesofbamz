@@ -34,11 +34,11 @@ const RootLayout = () => {
         if (userDoc) {
           setUser(userDoc.data().username);
         } else {
-          setUser(currentUser ? 'Anonymous' : null);
+          setUser(currentUser);
         }
       } catch (error) {
         console.error('Error fetching user document:', error);
-        setUser('Anonymous');
+        setUser(null);
       }
     };
     getDoc();

@@ -61,11 +61,10 @@ const LoginForm = ({ handleUploadOverlay, className, handleSignUpForm }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        await user.reload(); // Reload user to get the latest data if needed
+        await user.reload();
       }
-      console.log(user);
     });
-    return () => unsubscribe(); // Cleanup on component unmount
+    return () => unsubscribe(); 
   }, [auth]);
 
   const handleLoginWithGoogle = async (e) => {

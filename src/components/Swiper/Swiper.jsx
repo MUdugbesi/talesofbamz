@@ -15,7 +15,6 @@ import 'swiper/css/effect-coverflow';
 import './Swiper.css';
 
 const Slider = ({ gallery }) => {
-  console.log(gallery);
   return (
     <>
       <>
