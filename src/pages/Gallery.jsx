@@ -45,6 +45,7 @@ const Gallery = () => {
           uploaderName: currentUser.displayName || user || 'Anonymous',
           userId: currentUser.uid,
           timestamp: new Date(),
+          type: img.type,
         });
 
         setImg(null);
@@ -179,6 +180,7 @@ const Gallery = () => {
                         imgUrl={image.url}
                         user={image.uploaderName}
                         timestamp={image.timestamp}
+                        type={image.type}
                       />
                     ))}
                   </div>

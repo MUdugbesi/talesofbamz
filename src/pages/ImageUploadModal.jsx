@@ -16,6 +16,7 @@ const ImageUploadModal = ({
     if (img !== null) {
       const image = URL.createObjectURL(img);
       setFile(image);
+      
     }
   }, [img]);
 
@@ -58,13 +59,17 @@ const ImageUploadModal = ({
               </>
             ) : (
               <>
-                <div className=''>
+                {img?.type === 'image/jpeg' ? (
                   <img
                     src={file}
                     alt='file uploaded'
                     className='w-full h-full rounded-lg object-contain'
                   />
-                </div>
+                ) : (
+                  <video width='750' height='500' controls>
+                    <source src={file} type='video/mp4' />
+                  </video>
+                )}
               </>
             )}
           </div>
@@ -72,11 +77,13 @@ const ImageUploadModal = ({
           {file && (
             <div className='flex justify-center items-center'>
               <UploadButton
-                className={`upload hover:bg-primary flex justify-center w-[50%] h-[40px] rounded-lg ${uploading && 'text-white bg-primary'}`}
+                className={`upload hover:bg-primary flex justify-center w-[50%] h-[40px] rounded-lg ${
+                  uploading && 'text-white bg-primary'
+                }`}
                 onClick={handleUploadImage}
                 text={buttonText}
               />
-            </div>
+             </div>
           )}
         </div>
       </div>

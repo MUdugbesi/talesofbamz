@@ -47,7 +47,13 @@ const Slider = ({ gallery }) => {
             {gallery.map((item) => {
               return (
                 <SwiperSlide key={item.id} className='swiper-slide'>
-                  <img src={item.url} alt={item.name} />
+                  {item.type !== 'video/quicktime' ? (
+                    <img src={item.url} alt={item.name} />
+                  ) : (
+                    <video width='500' height='200' controls>
+                      <source src={item.url} type='video/mp4' alt={item.name} />
+                    </video>
+                  )}
                 </SwiperSlide>
               );
             })}
